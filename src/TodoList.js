@@ -13,6 +13,7 @@ class TodoList extends Component {
         }
     }
     render() {
+        console.log('render')
         return (
             <Fragment>
                 {/** 这是注释 */}
@@ -20,6 +21,9 @@ class TodoList extends Component {
                      {/** htmlFor 点击Label focus input */}
                     <label htmlFor='input'>输入待办事项</label>
                     <input
+                        ref={(input)=>{
+                            this.input = input
+                        }}
                         id='input'
                         className='input'
                         value={this.state.inputValue}
@@ -41,6 +45,7 @@ class TodoList extends Component {
         })
     }
     handleInputChange(e) {
+        console.log(this.input)
         const value = e.target.value
         this.setState(()=>{
             return {
@@ -51,11 +56,44 @@ class TodoList extends Component {
         //     inputValue: e.target.value
         // })
     }
+    //组件即将挂载之前
+    componentWillMount(){
+        console.log('componentWillMount')
+    }
+     //组件挂载之后
+    componentDidMount(){
+        console.log('componentDidMount')
+    }
+
+    //组件更新流程 props或者state发生变化
+
+    //组件更新之前
+    shouldComponentUpdate(){
+        console.log('shouldComponentUpdate')
+        return true
+    }
+   
+     //组件即将被更新
+    componentWillUpdate(){
+        console.log('componentWillUpdate')
+    }
+
+    componentWillUnmount(){
+        console.log('componentWillUnmount')
+
+    }
+
     handleBtnClick() {
-        this.setState({
-            list: [...this.state.list, this.state.inputValue],
+        this.setState((prevState)=>({
+            list: [...prevState.list, prevState.inputValue],
             inputValue: ''
+        }),()=>{
+            //前面是异步的 第二个函数会在它之后执行
         })
+        // this.setState({
+        //     list: [...this.state.list, this.state.inputValue],
+        //     inputValue: ''
+        // })
 
     }
     delete(index){

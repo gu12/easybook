@@ -18,8 +18,20 @@ class TodoItem extends Component {
          this.props.delete(this.props.index)
 
     }
+    //此组件需要从父组件接收参数 当父组件中的render函数被重新执行的时候就会执行此函数
+    componentWillReceiveProps(){
+        console.log('componentWillReceiveProps')
+    
+    }
+
+    //
+    componentWillUnmount(){
+        console.log('子组件componentWillUnmount')
+
+    }
 
 }
+
 TodoItem.propTypes = {
     test:PropTypes.string.isRequired ,  //必须传
     item:PropTypes.string ,  //设置props类型
@@ -27,7 +39,7 @@ TodoItem.propTypes = {
     index:PropTypes.number,   //设置props类型
 }
 
-//属性默认值 arrayof(||)
+//属性默认值 arrayof(||) oneOfType 
 TodoItem.defaultProps = {
     test:'111'
 }
