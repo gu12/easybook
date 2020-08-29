@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import TodoItem from './components/Todo/Todoitem'
-
+import axios from 'axios'
 import './style.css'
 
 class TodoList extends Component {
@@ -20,6 +20,7 @@ class TodoList extends Component {
                 <div>
                      {/** htmlFor 点击Label focus input */}
                     <label htmlFor='input'>输入待办事项</label>
+                    <button>baidu<a href='http://baidu.com'>111</a></button>
                     <input
                         ref={(input)=>{
                             this.input = input
@@ -62,6 +63,9 @@ class TodoList extends Component {
     }
      //组件挂载之后
     componentDidMount(){
+        axios.get('/api/todolist').then().catch(()=>{
+            console.log('error')
+        })
         console.log('componentDidMount')
     }
 

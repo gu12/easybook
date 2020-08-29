@@ -6,7 +6,7 @@ import App from './App'; //组件名必须大写
 import TodoList from './TodoList'; 
 
 ReactDOM.render(
-    <TodoList/>,
+    <App/>,
   document.getElementById('root')
 );
 
