@@ -1,33 +1,49 @@
-import React,{Component} from 'react'
-import {Input,Button,List} from 'antd'
+import React, { Component } from 'react'
+import { Input, Button, List } from 'antd'
+import store from './store'
 
-const data = [
-    'Racing car sprays burning fuel into crowd.',
-    'Japanese princess to wed commoner.',
-    'Australian walks 100km after outback crash.',
-    'Man charged over missing wedding girl.',
-    'Los Angeles battles huge wildfires.',
-  ];
 
-class Antdtodo extends Component{
-    render(){
+
+class Antdtodo extends Component {
+    constructor(props) {
+        super(props)
+        this.state = store.getState()
+        store.subscribe(this.handleStoreChange)
+        console.log(store.getState())
+    }
+    render() {
         return (
-            <div>
+            <div style={{ margin: '30px' }}>
                 <div>
-                    <Input placeholder='请输入' style={{width:'300px',padding:'10px',marginRight:'20px'}}></Input>
-                    <Button type='primary'>点击</Button>
+                    <Input onChange={this.inputChange} value={this.state.inputValue} placeholder='请输入' style={{ width: '300px', padding: '10px', marginRight: '20px' }}></Input>
+                    <Button type='primary' onClick={this.submit}>提交</Button>
                 </div>
                 <List
-                style={{width:'300px',marginTop:'20px'}}
-                header={<div>Header</div>}
-                footer={<div>Footer</div>}
-                bordered
-                dataSource={data}
+                    style={{ width: '300px', marginTop: '20px' }}
+                    bordered
+                    dataSource={this.state.list}
                     renderItem={item => <List.Item>{item}</List.Item>}
 
                 />
             </div>
         )
+    }
+    inputChange = (e) => {
+        const action = {
+            type: 'change_input_value',
+            value: e.target.value
+        }
+        store.dispatch(action)
+    }
+    handleStoreChange = () => {
+        this.setState(store.getState())
+    }
+    submit=(e)=>{
+        const action = {
+            type: 'add_todo_item',
+        }
+        store.dispatch(action)
+         
     }
 }
 
