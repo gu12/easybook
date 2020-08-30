@@ -1,9 +1,11 @@
+import { DELETE_TODO_ITEM,INIT_TODO_LIST }from './actionTypes'
+
+
 const defaultState = {
     inputValue: '123',
-    list:[
-       
-      ]
+    list:[]
 }
+
 
 
 //reducer不能改state
@@ -17,6 +19,15 @@ export default (state = defaultState,action) =>{
          if(action.type === 'add_todo_item'){
               newState.list.push(newState.inputValue)
               newState.inputValue = ''
+              return newState
+        } 
+        
+        if(action.type === 'delete_todo_item'){
+              newState.list.splice(action.index,1)
+              return newState
+        }
+         if(action.type === INIT_TODO_LIST){
+              newState.list = action.data
               return newState
         }
         return  state
